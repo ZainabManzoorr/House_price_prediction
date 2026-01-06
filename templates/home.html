@@ -1,0 +1,99 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Boston Housing Price Prediction</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        input { margin: 5px 0; width: 150px; }
+        button { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Boston Housing Price Prediction</h2>
+    <form id="predictForm">
+        <!-- Dynamically create input fields for each feature -->
+        <div>
+            <label>CRIM:</label>
+            <input type="number" step="any" name="CRIM" required>
+        </div>
+        <div>
+            <label>ZN:</label>
+            <input type="number" step="any" name="ZN" required>
+        </div>
+        <div>
+            <label>INDUS:</label>
+            <input type="number" step="any" name="INDUS" required>
+        </div>
+        <div>
+            <label>CHAS:</label>
+            <input type="number" step="any" name="CHAS" required>
+        </div>
+        <div>
+            <label>NOX:</label>
+            <input type="number" step="any" name="NOX" required>
+        </div>
+        <div>
+            <label>RM:</label>
+            <input type="number" step="any" name="RM" required>
+        </div>
+        <div>
+            <label>AGE:</label>
+            <input type="number" step="any" name="AGE" required>
+        </div>
+        <div>
+            <label>DIS:</label>
+            <input type="number" step="any" name="DIS" required>
+        </div>
+        <div>
+            <label>RAD:</label>
+            <input type="number" step="any" name="RAD" required>
+        </div>
+        <div>
+            <label>TAX:</label>
+            <input type="number" step="any" name="TAX" required>
+        </div>
+        <div>
+            <label>PTRATIO:</label>
+            <input type="number" step="any" name="PTRATIO" required>
+        </div>
+        <div>
+            <label>B:</label>
+            <input type="number" step="any" name="B" required>
+        </div>
+        <div>
+            <label>LSTAT:</label>
+            <input type="number" step="any" name="LSTAT" required>
+        </div>
+        <button type="submit">Predict</button>
+    </form>
+
+    <h3 id="result"></h3>
+
+    <script>
+        const form = document.getElementById("predictForm");
+        form.addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => { data[key] = parseFloat(value); });
+
+            const response = await fetch("/predict_api", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ data })
+            });
+
+            const result = await response.json();
+            if(result.prediction !== undefined){
+                document.getElementById("result").innerText = 
+                    `Predicted Price: $${result.prediction.toFixed(2)}k`;
+            } else if(result.error){
+                document.getElementById("result").innerText = `Error: ${result.error}`;
+            }
+        });
+    </script>
+</body>
+</html>
