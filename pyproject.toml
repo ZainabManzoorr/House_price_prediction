@@ -15,7 +15,8 @@ dependencies = [
     "scikit-learn==1.8.0",
     "flask==3.1.2",
     "gunicorn==23.0.0",
-    "joblib==1.5.3"
+    "joblib==1.5.3",
+    "docker (>=7.1.0,<8.0.0)"
 ]
 
 # Dev dependencies (optional tools for local development)
