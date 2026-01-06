@@ -1,24 +1,29 @@
 [project]
 name = "house-price-prediction"
 version = "0.1.0"
-description = ""
+description = "ML model to predict Boston house prices"
 authors = [
-    {name = "Zainab Manzoor",email = "zainabmanzoorzoor@gmail.com"}
+    {name = "Zainab Manzoor", email = "zainabmanzoorzoor@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
+
+# Production dependencies only
 dependencies = [
-    "pandas (>=2.3.3,<3.0.0)",
-    "numpy (>=2.4.0,<3.0.0)",
-    "matplotlib (>=3.10.8,<4.0.0)",
-    "seaborn (>=0.13.2,<0.14.0)",
-    "scikit-learn (>=1.8.0,<2.0.0)",
-    "kagglehub (>=0.3.13,<0.4.0)",
-    "jupyter (>=1.1.1,<2.0.0)",
-    "flask (>=3.1.2,<4.0.0)",
-    "gunicorn (>=23.0.0,<24.0.0)"
+    "pandas==2.3.3",
+    "numpy==2.4.0",
+    "scikit-learn==1.8.0",
+    "flask==3.1.2",
+    "gunicorn==23.0.0",
+    "joblib==1.5.3"
 ]
 
+# Dev dependencies (optional tools for local development)
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.1.1"
+matplotlib = "^3.10.8"
+seaborn = "^0.13.2"
+kagglehub = "^0.3.13"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
